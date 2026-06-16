@@ -1,0 +1,26 @@
+# Last updated: 6/16/2026, 11:57:38 PM
+1from typing import List
+2
+3class Solution:
+4    def isBipartite(self, graph: List[List[int]]) -> bool:
+5        V = len(graph)
+6        color = [-1] * V
+7
+8        def dfs(u, curr_color):
+9            color[u] = curr_color
+10
+11            for v in graph[u]:
+12                if color[v] == -1:
+13                    if not dfs(v, 1 - curr_color):
+14                        return False
+15                elif color[v] == color[u]:
+16                    return False
+17
+18            return True
+19
+20        for i in range(V):
+21            if color[i] == -1:
+22                if not dfs(i, 0):
+23                    return False
+24
+25        return True
